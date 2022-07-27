@@ -9,6 +9,7 @@ kickbase = Kickbase()
 user, leagues = kickbase.login("fibi.mayr@gmail.com", "bYmtev-0qarcu-gykwij")
 
 # %%
+sep = os.sep
 datetime = datetime.now()
 dt_string = datetime.strftime("%d.%m.%Y %H:%M:%S")
 
@@ -41,10 +42,10 @@ for team_id in range(100):
 players_df = pd.DataFrame(players)
 
 # %%
-if "player_data.csv" in os.listdir():
-    history_df = pd.read_csv("player_data.csv")
+if "player_data.csv" in os.listdir(f".{sep}data"):
+    history_df = pd.read_csv(f".{sep}data{sep}player_data.csv")
     players_df = pd.concat([history_df, players_df], ignore_index=True)
 
 players_df = players_df.drop_duplicates(subset=["first_name", "last_name", "date"], keep="first")
     
-players_df.to_csv("player_data.csv", index=False)
+players_df.to_csv(f".{sep}data{sep}player_data.csv", index=False)

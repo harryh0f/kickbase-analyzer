@@ -1,10 +1,12 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+import os
 
+sep = os.sep
 st.title("Kickbase Analyzer")
 
-players_df = pd.read_csv("player_data_sample.csv")
+players_df = pd.read_csv(f".{sep}data{sep}player_data.csv")
 players_df.date = pd.to_datetime(players_df.date)
 players_df.date = players_df.date.dt.date
 players_df["full_name"] = players_df["first_name"] + " " + players_df["last_name"]
