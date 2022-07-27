@@ -7,10 +7,17 @@ sep = os.sep
 st.title("Kickbase Analyzer")
 
 players_df = pd.read_csv(f".{sep}data{sep}player_data.csv")
+
+with st.sidebar:
+    update = st.button("Update data!")
+
+if update:
+    players_df = pd.read_csv(f".{sep}data{sep}player_data.csv")
+    st.info("Current data read!")
+
 players_df.date = pd.to_datetime(players_df.date)
 players_df.date = players_df.date.dt.date
 players_df["full_name"] = players_df["first_name"] + " " + players_df["last_name"]
-# players_df = players_df.sort_values(by="last_name")
 
 with st.sidebar:
     start = st.date_input("Start", value=players_df["date"].min())
@@ -18,7 +25,6 @@ with st.sidebar:
     top_n = st.number_input("Show top n players", min_value=1, max_value=players_df.full_name.unique().shape[0], value=10)    
 
 players_df = players_df[(players_df["date"] >= start) & (players_df["date"] <= end)]
-# players_df = players_df[players_df["full_name"].isin(players_selection)]
 pre_agg_df = players_df[["last_name", "first_name", "team_id", "id", "market_value"]]
 
 agg_df = pre_agg_df.groupby(by=["last_name", "first_name", "team_id", "id"]) \

@@ -9,8 +9,8 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-
-RUN [ "python", "./data_collector.py" ]
+RUN [ "python", "./data_collector.py", "&" ]
+# RUN [ "python", "./data_collector.py" ]
 
 ENTRYPOINT ["streamlit", "run"]
 CMD ["data_explorer.py"]
