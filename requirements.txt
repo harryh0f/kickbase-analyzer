@@ -3,3 +3,4 @@ Kickbase-API==0.0.8
 streamlit==1.11.0
 plotly==5.9.0
 statsmodels==0.13.2
+schedule==1.1.0
